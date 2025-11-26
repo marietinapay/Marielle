@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vicente's Fishery - Computation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: white;
+      min-height: 100vh;
+      color: #1f2937;
+      display: flex;
+    }
+    .sidebar {
+      width: 280px;
+      background: #0f4471;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 0 1rem 0;
+      min-height: 100vh;
+    }
+    .logo-section {
+      text-align: left;
+      width: 100%;
+      padding-left: 32px;
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .logo-circle {
+      background: #3683cc;
+      border-radius: 50%;
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    .logo-text {
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .nav-menu {
+      width: 100%;
+      padding-left: 32px;
+      flex: 1;
+    }
+    .nav-item {
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.4rem;
+      gap: 1rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      border-radius: 8px;
+      padding: 0.18rem 0.5rem;
+      text-decoration: none;
+      border: none;
+    }
+    .nav-item.active,
+    .nav-item:hover {
+      background: #3784d1;
+      color: #0f4471;
+      text-decoration: none;
+    }
+    .nav-item i {
+      color: #4e55a2;
+      font-size: 1.15em;
+      min-width: 30px;
+      text-align: center;
+    }
+    .logout-section {
+      width: 100%;
+      padding-left: 32px;
+      margin-top: 2rem;
+    }
+    .logout-btn {
+      display: flex;
+      align-items: center;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+      background: none;
+      border: none;
+      outline: none;
+    }
+    .logout-btn i { color: #7e36cc; }
+
+    .main-content {
+      flex: 1;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
+    }
+    .computation-title {
+      font-size: 3rem;
+      font-weight: 900;
+      text-align: center;
+      margin: 2.6rem 0 1.4rem 0;
+      letter-spacing: 0.04em;
+      color: #070707;
+    }
+    .computation-form-container {
+      width: 84%;
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-bottom: 2rem;
+    }
+    .computation-form-box {
+      background: #b6d2ee;
+      border-radius: 48px;
+      width: 38%;
+      min-width: 320px;
+      padding: 2.4rem 1rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      font-weight: 600;
+      font-size: 1.34rem;
+    }
+    .comp-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .comp-label {
+      font-weight: 700;
+      color: #223;
+      font-size: 1.15rem;
+      margin-bottom: 0.15rem;
+      background: none;
+    }
+    .comp-input {
+      background: #fff5f8;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      font-size: 1.17rem;
+      font-weight: 500;
+      margin-bottom: 0.1rem;
+      width: 96%;
+      box-sizing: border-box;
+    }
+    .button-row {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      gap: 3rem;
+      justify-content: center;
+      margin-top: 1.2rem;
+    }
+    .comp-btn {
+      background: #3784d1;
+      color: #fff;
+      border: none;
+      border-radius: 11px;
+      font-size: 1.25rem;
+      font-weight: 600;
+      padding: 0.65rem 2.1rem;
+      cursor: pointer;
+      box-shadow: 2px 3px 0px #b2c3eff3;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      transition: background 0.13s;
+    }
+    .comp-btn:hover { background: #204379; }
+    .comp-btn:active { box-shadow: none; }
+    .comp-btn.save i { font-size: 1.16em; }
+    .comp-btn.print i { font-size: 1.16em; }
+    @media (max-width: 900px) {
+      .computation-form-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.7rem;
+        width: 99%;
+      }
+      .computation-form-box { width: 96%; min-width: 10px; padding: 1rem; }
+      .button-row { gap: 1.3rem; }
+    }
+    @media (max-width: 600px) {
+      .sidebar { width: 80px; padding-left: 0; }
+      .logo-section { padding-left: 8px; }
+      .logo-text { font-size: 0.9rem; }
+      .nav-menu { padding-left: 8px; }
+      .main-content, .computation-form-container { width: 97%; }
+      .computation-title { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo-section">
+      <div class="logo-circle">Logo</div>
+      <div class="logo-text">Vicente's<br>Fishery</div>
+    </div>
+    <div class="nav-menu">
+      <a href="dashboard.html" class="nav-item"><i class="fa-solid fa-house"></i>Dashboard</a>
+      <a href="workersdata.html" class="nav-item"><i class="fa-solid fa-id-card"></i>Worker's Data</a>
+      <a href="transaction.html" class="nav-item"><i class="fa-solid fa-money-bill-trend-up"></i>Transaction</a>
+      <a href="computation.html" class="nav-item active"><i class="fa-solid fa-calculator"></i>Computation</a>
+      <a href="feedstocks.html" class="nav-item"><i class="fa-solid fa-chart-column"></i>Feed Stocks</a>
+      <a href="about.html" class="nav-item"><i class="fa-solid fa-circle-info"></i>About</a>
+    </div>
+    <div class="logout-section">
+      <button class="logout-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <div class="computation-title">HARVESTING COMPUTATION</div>
+    <div class="computation-form-container">
+      <form class="computation-form-box" autocomplete="off">
+        <div class="comp-row">
+          <label class="comp-label" for="comp-id">ID:</label>
+          <input class="comp-input" type="text" id="comp-id" name="comp-id" />
+        </div>
+        <div class="comp-row">
+          <label class="comp-label" for="comp-fisherman">Fisherman:</label>
+          <input class="comp-input" type="text" id="comp-fisherman" name="comp-fisherman" />
+        </div>
+        <div class="comp-row">
+          <label class="comp-label" for="comp-kilo">Kilo of Fish:</label>
+          <input class="comp-input" type="number" id="comp-kilo" name="comp-kilo" />
+        </div>
+        <div class="comp-row">
+          <label class="comp-label" for="comp-price-kilo">Price/Kilo:</label>
+          <input class="comp-input" type="number" id="comp-price-kilo" name="comp-price-kilo" />
+        </div>
+        <div class="comp-row">
+          <label class="comp-label" for="comp-subtotal">Subtotal:</label>
+          <input class="comp-input" type="number" id="comp-subtotal" name="comp-subtotal" />
+        </div>
+      </form>
+      <form class="computation-form-box" autocomplete="off">
+        <div class="comp-row">
+          <label class="comp-label" for="comp-similia">Amount of Similia:</label>
+          <input class="comp-input" type="number" id="comp-similia" name="comp-similia" />
+        </div>
+        <div class="comp-row">
+          <label class="comp-label" for="comp-feeds">Amount of Feeds:</label>
+          <input class="comp-input" type="number" id="comp-feeds" name="comp-feeds" />
+        </div>
+        <div class="comp-row">
+          <label class="comp-label" for="comp-expenses">Total Expenses:</label>
+          <input class="comp-input" type="number" id="comp-expenses" name="comp-expenses" />
+        </div>
+        <div class="comp-row">
+          <label class="comp-label" for="comp-profit">Profit:</label>
+          <input class="comp-input" type="number" id="comp-profit" name="comp-profit" />
+        </div>
+        <div class="comp-row">
+          <label class="comp-label" for="comp-divided-profit">Divided Profit:</label>
+          <input class="comp-input" type="number" id="comp-divided-profit" name="comp-divided-profit" />
+        </div>
+        <div class="comp-row">
+          <label class="comp-label" for="comp-date">Date:</label>
+          <input class="comp-input" type="date" id="comp-date" name="comp-date" />
+        </div>
+      </form>
+    </div>
+    <div class="button-row">
+      <button class="comp-btn save"><i class="fa-solid fa-bookmark"></i> Save</button>
+      <button class="comp-btn print"><i class="fa-solid fa-print"></i> Print</button>
+    </div>
+  </div>
+
+  <script>
+    function logout() {
+      if (confirm("Are you sure you want to logout?")) {
+        window.location.href = "login.html";
+      }
+    }
+  </script>
+</body>
+</html>

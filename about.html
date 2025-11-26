@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vicente's Fishery - About</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      color: #fff;
+      display: flex;
+      background: #b4e2ff;
+    }
+    .sidebar {
+      width: 280px;
+      background: #0f4471;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 0 1rem 0;
+      min-height: 100vh;
+      z-index: 10;
+    }
+    .logo-section {
+      text-align: left;
+      width: 100%;
+      padding-left: 32px;
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .logo-circle {
+      background: #3683cc;
+      border-radius: 50%;
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    .logo-text {
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .nav-menu {
+      width: 100%;
+      padding-left: 32px;
+      flex: 1;
+    }
+    .nav-item {
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.4rem;
+      gap: 1rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      border-radius: 8px;
+      padding: 0.18rem 0.5rem;
+      text-decoration: none;
+      border: none;
+    }
+    .nav-item.active,
+    .nav-item:hover {
+      background: #3784d1;
+      color: #0f4471;
+      text-decoration: none;
+    }
+    .nav-item i {
+      color: #4e55a2;
+      font-size: 1.15em;
+      min-width: 30px;
+      text-align: center;
+    }
+    .logout-section {
+      width: 100%;
+      padding-left: 32px;
+      margin-top: 2rem;
+    }
+    .logout-btn {
+      display: flex;
+      align-items: center;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+      background: none;
+      border: none;
+      outline: none;
+    }
+    .logout-btn i { color: #7e36cc; }
+    .main-content {
+      flex: 1;
+      width: 100%;
+      min-height: 100vh;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') no-repeat center center;
+      background-size: cover;
+      box-sizing: border-box;
+      overflow-x: hidden;
+      z-index: 1;
+    }
+    .glass-info {
+      background: rgba(41,64,112,0.78);
+      border-radius: 48px;
+      margin: 2.5rem auto 1.5rem auto;
+      color: #fff;
+      font-size: 1.35rem;
+      font-weight: 400;
+      padding: 2.8rem 2.4rem;
+      width: 74%;
+      max-width: 1000px;
+      box-shadow: 0 0 20px rgba(18, 29, 71, 0.13);
+      text-align: left;
+    }
+    .review-cards {
+      width: 74%;
+      max-width: 1000px;
+      display: flex;
+      justify-content: space-between;
+      margin: 24px auto 0 auto;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      z-index: 2;
+    }
+    .review-card {
+      background: rgba(123,146,172,0.94);
+      border-radius: 36px;
+      width: 30%;
+      min-width: 160px;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #fff;
+      box-shadow: 0 0 12px rgba(18,29,71,0.12);
+      text-align: center;
+      margin-bottom: 0.6rem;
+      transition: transform 0.2s;
+    }
+    .review-card:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 6px 20px rgba(41,64,112,0.23);
+    }
+    .carousel-dots {
+      text-align: center;
+      margin-top: 24px;
+      z-index: 2;
+      position: relative;
+    }
+    .carousel-dot {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      margin: 0 4px;
+      background: #b2b7cf;
+      border-radius: 50%;
+    }
+    .carousel-dot.active {
+      background: #336699;
+    }
+    /* Responsive Styles */
+    @media (max-width: 1050px) {
+      .glass-info, .review-cards { width: 95vw; max-width: 97vw;}
+      .review-card { width: 28vw; min-width: 130px;}
+    }
+    @media (max-width: 900px) {
+      .glass-info { font-size: 1.1rem; padding: 1.9rem 1rem; }
+      .review-cards { gap: 1.2rem;}
+      .review-card { height: 150px; font-size: 1.1rem; }
+    }
+    @media (max-width: 600px) {
+      .sidebar { width: 76px; padding-left: 0; }
+      .logo-section { padding-left: 6px; }
+      .logo-text { font-size: 0.85rem; }
+      .nav-menu { padding-left: 6px; }
+      .main-content, .glass-info, .review-cards { width: 99vw; min-width: 10px;}
+      .glass-info { padding: 1.3rem 0.5rem; border-radius: 16px; font-size: 0.98rem;}
+      .review-cards { flex-direction: column; align-items: center; width: 99vw; gap: 0.5rem;}
+      .review-card { width: 84vw; min-width: 80vw; height: 70px; font-size: 0.98rem; border-radius: 16px;}
+      .carousel-dots { margin-top: 8px;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo-section">
+      <div class="logo-circle">Logo</div>
+      <div class="logo-text">Vicente's<br>Fishery</div>
+    </div>
+    <div class="nav-menu">
+      <a href="dashboard.html" class="nav-item"><i class="fa-solid fa-house"></i>Home</a>
+      <a href="workersdata.html" class="nav-item"><i class="fa-solid fa-id-card"></i>Worker's Data</a>
+      <a href="transaction.html" class="nav-item"><i class="fa-solid fa-money-bill-trend-up"></i>Transaction</a>
+      <a href="computation.html" class="nav-item"><i class="fa-solid fa-calculator"></i>Computation</a>
+      <a href="feedstocks.html" class="nav-item"><i class="fa-solid fa-chart-column"></i>Feed Stocks</a>
+      <a href="about.html" class="nav-item active"><i class="fa-solid fa-circle-info"></i>About</a>
+    </div>
+    <div class="logout-section">
+      <button class="logout-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+    </div>
+  </div>
+  <div class="main-content">
+    <div class="glass-info">
+      <p>
+        Lorem ipsum dolor sit amet. Non molestias modi et necessitatibus enim aut nihil nobis quo tenetur obcaecati qui modi eveniet a nobis facere quo nesciunt animi. Est similique quis 33 odit nihil et nemo consequuntur est illum quae non dolore magnam.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet. Non molestias modi et necessitatibus enim aut nihil nobis quo tenetur obcaecati qui modi eveniet a nobis facere quo nesciunt animi. Est similique quis 33 odit nihil et nemo consequuntur est illum quae non dolore magnam.
+      </p>
+    </div>
+    <div class="review-cards">
+      <div class="review-card">Review</div>
+      <div class="review-card">Review</div>
+      <div class="review-card">Review</div>
+    </div>
+    <div class="carousel-dots">
+      <span class="carousel-dot active"></span>
+      <span class="carousel-dot"></span>
+      <span class="carousel-dot"></span>
+      <span class="carousel-dot"></span>
+    </div>
+  </div>
+  <script>
+    function logout() {
+      if (confirm("Are you sure you want to logout?")) {
+        window.location.href = "login.html";
+      }
+    }
+  </script>
+</body>
+</html>
