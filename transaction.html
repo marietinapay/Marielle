@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vicente's Fishery - Transaction</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: #1f2937;
+      display: flex;
+    }
+    .sidebar {
+      width: 280px;
+      background: #0f4471;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 0 1rem 0;
+      min-height: 100vh;
+    }
+    .logo-section {
+      text-align: left;
+      width: 100%;
+      padding-left: 32px;
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .logo-circle {
+      background: #3683cc;
+      border-radius: 50%;
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    .logo-text {
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .nav-menu {
+      width: 100%;
+      padding-left: 32px;
+      flex: 1;
+    }
+    .nav-item {
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.4rem;
+      gap: 1rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      border-radius: 8px;
+      padding: 0.18rem 0.5rem;
+      text-decoration: none;
+      border: none;
+    }
+    .nav-item.active,
+    .nav-item:hover {
+      background: #3784d1;
+      color: #0f4471;
+      text-decoration: none;
+    }
+    .nav-item i {
+      color: #4e55a2;
+      font-size: 1.15em;
+      min-width: 30px;
+      text-align: center;
+    }
+    .logout-section {
+      width: 100%;
+      padding-left: 32px;
+      margin-top: 2rem;
+    }
+    .logout-btn {
+      display: flex;
+      align-items: center;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+      background: none;
+      border: none;
+      outline: none;
+    }
+    .logout-btn i { color: #7e36cc; }
+
+    .main-content {
+      flex: 1;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      position: relative;
+      background: #fff;
+    }
+    .transaction-title {
+      font-size: 2.7rem;
+      font-weight: 900;
+      margin: 2.5rem 0 1.4rem 0;
+      letter-spacing:0.04em;
+      color: #212326;
+      text-align: center;
+    }
+    .transaction-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      width: 100%;
+      margin-bottom: 2.2rem;
+    }
+    .searchbox {
+      background: #dedede; border-radius:11px; border:none; padding:0.5rem 2.5rem;
+      font-size:1.23rem;width:330px;
+      margin: 0 1.3rem;
+    }
+    .button {
+      background: #3784d1; color:#fff; border:none; border-radius:11px;
+      font-size:1.09rem; font-weight:600; padding:0.62rem 2.1rem; cursor:pointer;
+      box-shadow: 2px 3px 0px #b2c3eff3;
+      margin-right: 0.4rem;
+      display: inline-flex; align-items: center; gap:0.4em;
+      transition: background 0.13s;
+    }
+    .button:hover { background: #204379; }
+    .button.print { background: #3784d1; }
+    .button.print i { margin-right: 4px; }
+    .button.red { background:#e05151; margin-right:0; }
+    .button.red:hover { background:#d92626; }
+    .button:active { box-shadow:none; }
+    .button.hc {
+      background: #3784d1;
+      float: right;
+      margin-left: auto;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+    }
+    .button.hc i { margin-right: 4px;}
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.3rem 3.5rem;
+      width: 850px;
+      margin: 0 auto 2.1rem auto;
+      font-size: 1.15rem;
+    }
+    .form-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .form-label {
+      background: #c5c5c5;
+      padding: 0.5rem 1.2rem;
+      border-radius: 8px;
+      min-width: 170px;
+      color: #222;
+      font-weight: 700;
+      margin-right: 0.7rem;
+      font-size: 1.08rem;
+      display: inline-block;
+    }
+    .form-inp {
+      width: 170px;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 7px;
+      background: #edf2fa;
+      font-size: 1rem;
+    }
+    .sum-row {
+      grid-column: span 2;
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin-top: 1rem;
+    }
+    .delete-row {
+      grid-column: span 2;
+      text-align: left;
+      margin-top: 18px;
+    }
+    .button.hc {
+      margin-top: 25px;
+      float: right;
+    }
+    @media (max-width: 950px) {
+      .form-grid { width: 97%; }
+    }
+    @media (max-width: 650px) {
+      .form-grid { width: 99%; grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo-section">
+      <div class="logo-circle">Logo</div>
+      <div class="logo-text">Vicente's<br>Fishery</div>
+    </div>
+    <div class="nav-menu">
+      <a href="dashboard.html" class="nav-item"><i class="fa-solid fa-house"></i>Dashboard</a>
+      <a href="workersdata.html" class="nav-item"><i class="fa-solid fa-id-card"></i>Worker's Data</a>
+      <a href="transaction.html" class="nav-item active"><i class="fa-solid fa-money-bill-trend-up"></i>Transaction</a>
+      <a href="computation.html" class="nav-item"><i class="fa-solid fa-calculator"></i>Computation</a>
+      <a href="feedstocks.html" class="nav-item"><i class="fa-solid fa-chart-column"></i>Feed Stocks</a>
+      <a href="about.html" class="nav-item"><i class="fa-solid fa-circle-info"></i>About</a>
+    </div>
+    <div class="logout-section">
+      <button class="logout-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+    </div>
+  </div>
+
+  <!-- Transaction Content -->
+  <div class="main-content">
+    <div class="transaction-title">TRANSACTION</div>
+    <div class="transaction-actions">
+      <button class="button" id="saveBtn"><i class="fa-solid fa-bookmark"></i>Save</button>
+      <input type="text" class="searchbox" id="searchInp" placeholder="Search...">
+      <button class="button print" id="printBtn"><i class="fa-solid fa-print"></i> Print</button>
+    </div>
+    <form id="transactionForm">
+      <div class="form-grid">
+        <div class="form-row"><span class="form-label">ID:</span><input class="form-inp" name="id" id="idInp" type="text" required></div>
+        <div class="form-row"><span class="form-label">Fisherman:</span><input class="form-inp" name="fisherman" id="fishermanInp" type="text" required></div>
+        <div class="form-row"><span class="form-label">Type of Feeds:</span><input class="form-inp" name="feeds" id="feedsInp" type="text" required></div>
+        <div class="form-row"><span class="form-label">Price:</span><input class="form-inp" name="price" id="priceInp" type="number" min="0" required></div>
+        <div class="form-row"><span class="form-label">Quantity:</span><input class="form-inp" name="quantity" id="qtyInp" type="number" min="0" required></div>
+        <div class="form-row"><span class="form-label">Total Amount:</span>
+          <input class="form-inp" name="total" id="totalInp" type="number" min="0" readonly>
+        </div>
+        <div class="form-row"><span class="form-label">Date:</span><input class="form-inp" name="date" id="dateInp" type="date" required></div>
+        <div class="form-row"><span class="form-label">Sum of Transactions:</span>
+          <input class="form-inp" id="sumInp" type="text" readonly>
+        </div>
+        <div class="delete-row">
+          <button type="button" class="button red" id="deleteBtn"><i class="fa-solid fa-trash"></i>Delete</button>
+          <button type="button" class="button hc" id="goHCBtn"><i class="fa-solid fa-paper-plane"></i>Go to HC</button>
+        </div>
+      </div>
+    </form>
+    <!-- Transaction List (hidden but for search) -->
+    <table id="transTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>ID</th><th>Fisherman</th><th>Feeds</th><th>Price</th><th>Qty</th><th>Total</th><th>Date</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <script>
+    // Logout
+    function logout() {
+      window.location.href = "login.html";
+    }
+    // Go to HC button
+    document.getElementById('goHCBtn').onclick = function() {
+      window.location.href = "hc.html";
+    }
+
+    // Transaction storage (could use localStorage/database for persistence)
+    let transactions = [];
+    let selectedIdx = null;
+
+    // Elements
+    const idInp = document.getElementById('idInp');
+    const fishermanInp = document.getElementById('fishermanInp');
+    const feedsInp = document.getElementById('feedsInp');
+    const priceInp = document.getElementById('priceInp');
+    const qtyInp = document.getElementById('qtyInp');
+    const dateInp = document.getElementById('dateInp');
+    const totalInp = document.getElementById('totalInp');
+    const sumInp = document.getElementById('sumInp');
+    const saveBtn = document.getElementById('saveBtn');
+    const deleteBtn = document.getElementById('deleteBtn');
+    const searchInp = document.getElementById('searchInp');
+    const printBtn = document.getElementById('printBtn');
+    const transTable = document.getElementById('transTable').querySelector('tbody');
+
+    // Calculate total on price/qty change
+    function calcTotal() {
+      const price = parseFloat(priceInp.value) || 0;
+      const qty = parseFloat(qtyInp.value) || 0;
+      totalInp.value = price * qty;
+    }
+    priceInp.addEventListener('input', calcTotal);
+    qtyInp.addEventListener('input', calcTotal);
+
+    // Calculate and show sum of transactions
+    function renderSum() {
+      const sum = transactions.reduce((acc, t) => acc + Number(t.total), 0);
+      sumInp.value = sum.toFixed(2);
+    }
+
+    // Save Transaction
+    saveBtn.onclick = function(e) {
+      e.preventDefault();
+      const id = idInp.value.trim();
+      const fisherman = fishermanInp.value.trim();
+      const feeds = feedsInp.value.trim();
+      const price = parseFloat(priceInp.value) || 0;
+      const qty = parseFloat(qtyInp.value) || 0;
+      const total = parseFloat(totalInp.value) || 0;
+      const date = dateInp.value;
+      if (!id || !fisherman || !feeds || !price || !qty || !date) {
+        alert("All fields are required!");
+        return;
+      }
+      const tx = { id, fisherman, feeds, price, qty, total, date };
+      if (selectedIdx !== null) { // Edit mode
+        transactions[selectedIdx] = tx;
+        selectedIdx = null;
+      } else { // Add new
+        transactions.push(tx);
+      }
+      clearForm();
+      renderSum();
+      renderTable();
+    };
+
+    // Delete Transaction
+    deleteBtn.onclick = function(e) {
+      e.preventDefault();
+      if (selectedIdx !== null) {
+        transactions.splice(selectedIdx, 1);
+        selectedIdx = null;
+        clearForm();
+        renderSum();
+        renderTable();
+      } else {
+        alert("Select a transaction by searching and clicking on the row.");
+      }
+    };
+
+    // Search, filter and select
+    searchInp.addEventListener('input', function() {
+      const key = searchInp.value.toLowerCase();
+      const filtered = transactions.filter(t => Object.values(t).join(' ').toLowerCase().includes(key));
+      renderTable(filtered);
+    });
+
+    // Print
+    printBtn.onclick = function() {
+      window.print();
+    };
+
+    // Table rendering and row select/populate
+    function renderTable(filtered=null) {
+      transTable.innerHTML = "";
+      const arr = filtered || transactions;
+      arr.forEach((t, idx) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${t.id}</td><td>${t.fisherman}</td><td>${t.feeds}</td>
+          <td>${t.price}</td><td>${t.qty}</td><td>${t.total}</td><td>${t.date}</td>`;
+        row.onclick = function() {
+          idInp.value = t.id;
+          fishermanInp.value = t.fisherman;
+          feedsInp.value = t.feeds;
+          priceInp.value = t.price;
+          qtyInp.value = t.qty;
+          totalInp.value = t.total;
+          dateInp.value = t.date;
+          selectedIdx = transactions.indexOf(t);
+        };
+        transTable.appendChild(row);
+      });
+    }
+
+    // Clear form for entry
+    function clearForm() {
+      idInp.value = "";
+      fishermanInp.value = "";
+      feedsInp.value = "";
+      priceInp.value = "";
+      qtyInp.value = "";
+      totalInp.value = "";
+      dateInp.value = "";
+    }
+
+    // On load
+    renderSum();
+    renderTable();
+
+  </script>
+</body>
+</html>

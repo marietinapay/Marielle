@@ -13,7 +13,7 @@
     * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif; }
     body { 
       /* Show the full image without cropping or zooming; keep centered */
-      background-image: url('majestic-back-view-fisherman-boat-sailing.jpg');
+      background-image: url('./bg/majestic-back-view-fisherman-boat-sailing.jpg');
       background-repeat: no-repeat;
       background-position: center center;
       background-size: cover;
@@ -220,7 +220,7 @@
         const password=passwordInput.value;
         if(email==='owner@gmail.com' && password==='owner123'){
           alert('Sign In successful! Redirecting...');
-          window.location.href='index.html';
+          window.location.href='dashboard.html';
         } else {
           errorText.textContent='Invalid email or password';
           errorMessage.style.display='flex';
