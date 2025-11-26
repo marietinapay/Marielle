@@ -367,7 +367,9 @@
   </div>
   <script>
     function logout() {
-      window.location.href = "login.html";
+      if (confirm("Are you sure you want to logout?")) {
+        window.location.href = "login.html";
+      }
     }
 
     // Go to HC button
